@@ -204,7 +204,7 @@ $ bash ./uninstaller.sh
 ```bash
 $ python3 uninstaller.py
 ```
-##PRUEBA DE SECRETS SCANNING
+## PRUEBA DE SECRETS SCANNING
 ghp_TestSecretScanningFunctionality123456
 ## Solutions 
 <a href="/Solutions/solution.md">Solutions to all challenges</a>
