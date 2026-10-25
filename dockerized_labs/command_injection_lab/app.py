@@ -1,9 +1,42 @@
 from flask import Flask, render_template, request
 import subprocess
 import os
+import ast
+import operator
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "your-secret-key-here"
+
+ALLOWED_OPERATORS = {
+    ast.Add: operator.add,
+    ast.Sub: operator.sub,
+    ast.Mult: operator.mul,
+    ast.Div: operator.truediv,
+    ast.Mod: operator.mod,
+    ast.Pow: operator.pow,
+    ast.USub: operator.neg,
+    ast.UAdd: operator.pos,
+}
+
+
+def safe_eval_expression(expression):
+    parsed = ast.parse(expression, mode="eval")
+
+    def _eval(node):
+        if isinstance(node, ast.Expression):
+            return _eval(node.body)
+        if isinstance(node, ast.Constant) and isinstance(node.value, (int, float)):
+            return node.value
+        if isinstance(node, ast.BinOp) and type(node.op) in ALLOWED_OPERATORS:
+            left = _eval(node.left)
+            right = _eval(node.right)
+            return ALLOWED_OPERATORS[type(node.op)](left, right)
+        if isinstance(node, ast.UnaryOp) and type(node.op) in ALLOWED_OPERATORS:
+            operand = _eval(node.operand)
+            return ALLOWED_OPERATORS[type(node.op)](operand)
+        raise ValueError("Invalid expression")
+
+    return _eval(parsed)
 
 
 @app.route("/")
@@ -44,9 +77,8 @@ def lab2():
     """Lab 2: Python eval() Code Execution"""
     if request.method == "POST":
         try:
-            # Intentionally vulnerable eval
             expression = request.form.get("val", "")
-            output = eval(expression)
+            output = safe_eval_expression(expression)
             return render_template("lab2.html", output=str(output))
         except Exception as e:
             return render_template("lab2.html", output=str(e))
