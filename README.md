@@ -205,7 +205,7 @@ $ bash ./uninstaller.sh
 $ python3 uninstaller.py
 ```
 ## PRUEBA DE SECRETS SCANNING
-ghp_TestSecretScanningFunctionality123456
+aws_access_key_id ghp_TestSecretScanningFunctionality123456
 ## Solutions 
 <a href="/Solutions/solution.md">Solutions to all challenges</a>
 
