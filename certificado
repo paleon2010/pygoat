@@ -7,3 +7,9 @@ BAcMDU1vdW50YWluIFZpZXcxEzARBgNVBAoMCkdvb2dsZSBMTEMxGTAXBgNVBAMM
 ECoud2lkZ2V0cy5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCv
 ... (Aquí van cientos de caracteres aleatorios con la clave pública) ...
 -----END CERTIFICATE-----
+
+
+mysql://root:password123@localhost:3306/mi_db
+
+AKIAIOSFODNN7EXAMPLE
+FTP_PASS=P@ssw0rd_123
