@@ -19,7 +19,6 @@ from django.contrib.auth import views as auth_views
 from django.urls import include, path
 
 from introduction import views as v
-pass = qwerty
 
 urlpatterns = [
     path("admin/", admin.site.urls),
